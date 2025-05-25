@@ -37,24 +37,22 @@
 				<extensions>true</extensions>
 
 				<configuration>
-					<deployment>
-						<deploymentTarget>CH2</deploymentTarget>
-						<target>CH</target>
-						<uri>https://anypoint.mulesoft.com/</uri>
-						<muleVersion>4.9.5</muleVersion>
-						<username>${anypoint.username}</username>
-						<password>${anypoint.password}</password>
+  <deploy>
+    <target>CH</target>
+    <uri>https://anypoint.mulesoft.com/</uri>
+    <muleVersion>4.9.5</muleVersion>
+    <username>${anypoint.username}</username>
+    <password>${anypoint.password}</password>
+    <environment>${environment}</environment>
+    <applicationName>${appname}</applicationName>
+    <businessGroup>${groupname}</businessGroup>
+    <workers>${workers}</workers>
+    <workerType>${wtype}</workerType>
+    <region>${region}</region>
+    <objectStoreV2>true</objectStoreV2>
+  </deploy>
+</configuration>
 
-						<environment>${environment}</environment>
-						<applicationName>${appname}</applicationName>
-						<businessGroup>${groupname}</businessGroup>
-						<workers>${workers}</workers>
-						<workerType>${wtype}</workerType>
-						<region>${region}</region>
-
-						<objectStoreV2>true</objectStoreV2>
-					</deployment>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
