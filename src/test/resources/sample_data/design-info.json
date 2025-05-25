@@ -1,0 +1,8 @@
+{
+  "sampleData": {
+    "073e4344-f0a3-44e2-b87c-d0c4bc1bd20a": {
+      "vars-city": "sample_data/defaultstringtype.dwl",
+      "payload": "sample_data/java.dwl"
+    }
+  }
+}

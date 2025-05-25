@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7e2668e8-39d7-4f2b-8670-68088cf47fff" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="48e295cd-6df8-4688-b327-4ce305dd5200" />
+	<validation:config name="Validation_Config" doc:name="Validation Config" doc:id="1675c107-c139-4fdd-9101-6938e6b091f5" />
+	<flow name="practicesFlow" doc:id="a51cb616-3bb4-47a1-8300-3d8639c5ad33" >
+		<http:listener doc:name="MainListener" doc:id="11d23c22-78b6-4a2c-a9f5-77284fc6d291" config-ref="HTTP_Listener_config" path="/home"/>
+		<logger level="INFO" doc:name="InitLogger" doc:id="277cf9e7-eb24-46cd-b3b7-9fd02eb4857b" message="Initialization"/>
+		<set-variable value="#[payload.city as String]" doc:name="CityName" doc:id="82af4d58-a103-4ac3-8754-ad56a1497b7e" variableName="city"/>
+		<http:request method="GET" doc:name="Requester" doc:id="a5648e6d-d749-4fdd-82b9-f22f4e945fdd" config-ref="HTTP_Request_configuration" url="https://api.openweathermap.org/data/2.5/weather">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	q : vars.city,
+	appid : "d6090e81f3b24e7dc5e799855d57919c"
+}]]]></http:query-params>
+			<http:response-validator >
+				<http:success-status-code-validator values="200..499" />
+			</http:response-validator>
+		</http:request>
+		<choice doc:name="Choice" doc:id="dba025aa-da56-46b9-937f-5855c318a2d0" >
+			<when expression='#[attributes.statusCode as String =="200"]'>
+				<ee:transform doc:name="Transform Message" doc:id="073e4344-f0a3-44e2-b87c-d0c4bc1bd20a" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"City_Name": vars.city,
+	"Country":if(payload.sys.country=="IN") "India" else "Foriegn",
+	"Message": "Weather Details",
+	"Minimum_Temparature": ((payload.main.temp_min as Number)-273.15)as String ++" Degree Celcius",
+	"Maximum_Temparature": ((payload.main.temp_max as Number)-273.15)as String ++" Degree Celcius",
+	"Humidity Levels": payload.main.humidity as String ++" %",
+	"Wind Speed": payload.wind.speed as String ++" KMPH"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="d5d9e435-ac36-4ede-9a14-fbd0338f780a" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Given City Name": vars.city,
+	"Message": "Please Ensure the Correct City Name",
+	"Error ": payload
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="finalLogger" doc:id="63472902-ae97-4b4d-8ee4-a8ad421bc15f" message="Request Successfull!!"/>
+	</flow>
+</mule>
