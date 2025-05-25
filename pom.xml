@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
@@ -21,39 +22,24 @@
 
 	<build>
 		<plugins>
+			<!-- Clean plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.2.0</version>
 			</plugin>
+
+			<!-- Mule Maven plugin -->
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
-				<version>3.7.1</version>
+				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
-
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.aether</groupId>
-						<artifactId>aether-connector-basic</artifactId>
-						<version>1.1.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.aether</groupId>
-						<artifactId>aether-transport-file</artifactId>
-						<version>1.1.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.aether</groupId>
-						<artifactId>aether-transport-http</artifactId>
-						<version>1.1.0</version>
-					</dependency>
-				</dependencies>
 
 				<configuration>
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com/</uri>
-						<muleVersion>4.4.0</muleVersion>
+						<muleVersion>4.9.5</muleVersion>
 						<username>${anypoint.username}</username>
 						<password>${anypoint.password}</password>
 
