@@ -51,7 +51,7 @@
     <replicas>${workers}</replicas>
     <vCores>${vcores}</vCores>
   
-    <objectStoreV2>true</objectStoreV2>
+    
   </cloudhub2Deployment>
 </configuration>
 
