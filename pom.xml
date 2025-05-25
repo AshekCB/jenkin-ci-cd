@@ -5,7 +5,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
+	<groupId>2f49b363-fcdd-4032-8d25-d892de847979</groupId>
 	<artifactId>practices</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
@@ -58,6 +58,14 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+  <repository>
+    <id>anypoint-exchange</id>
+    <name>Anypoint Exchange</name>
+    <url>https://maven.anypoint.mulesoft.com/api/v2/organizations/${project.groupId}/maven</url>
+  </repository>
+</distributionManagement>
 
 	<dependencies>
 		<dependency>
