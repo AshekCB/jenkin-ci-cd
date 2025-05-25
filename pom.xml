@@ -37,8 +37,9 @@
 				<extensions>true</extensions>
 
 				<configuration>
-					<cloudHubDeployment>
-						
+					<deployment>
+						<deploymentTarget>CH2</deploymentTarget>
+						<provider>CH</provider>
 						<uri>https://anypoint.mulesoft.com/</uri>
 						<muleVersion>4.9.5</muleVersion>
 						<username>${anypoint.username}</username>
@@ -52,7 +53,7 @@
 						<region>${region}</region>
 
 						<objectStoreV2>true</objectStoreV2>
-					</cloudHubDeployment>
+					</deployment>
 				</configuration>
 			</plugin>
 		</plugins>
