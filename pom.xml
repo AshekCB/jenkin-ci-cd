@@ -37,20 +37,22 @@
 				<extensions>true</extensions>
 
 				<configuration>
-  <cloudHubDeployment>
+  <cloudhub2Deployment>
    
     <uri>https://anypoint.mulesoft.com/</uri>
+	  <provider>MC</provider>
+	  <target>Cloudhub-US-East-2</target>
     <muleVersion>4.9.5</muleVersion>
     <username>${anypoint.username}</username>
     <password>${anypoint.password}</password>
     <environment>${environment}</environment>
     <applicationName>${appname}</applicationName>
     <businessGroup>${groupname}</businessGroup>
-    <workers>${workers}</workers>
-    <workerType>${wtype}</workerType>
+    <replicas>${workers}</replicas>
+    <vCores>${vcores}</vCores>
     <region>${region}</region>
     <objectStoreV2>true</objectStoreV2>
-  </cloudHubDeployment>
+  </cloudhub2Deployment>
 </configuration>
 
 			</plugin>
