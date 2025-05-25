@@ -50,7 +50,7 @@
     <businessGroup>${groupname}</businessGroup>
     <replicas>${workers}</replicas>
     <vCores>${vcores}</vCores>
-    <region>${region}</region>
+  
     <objectStoreV2>true</objectStoreV2>
   </cloudhub2Deployment>
 </configuration>
