@@ -39,7 +39,7 @@
 				<configuration>
 					<deployment>
 						<deploymentTarget>CH2</deploymentTarget>
-						<provider>CH</provider>
+						<target>CH</target>
 						<uri>https://anypoint.mulesoft.com/</uri>
 						<muleVersion>4.9.5</muleVersion>
 						<username>${anypoint.username}</username>
